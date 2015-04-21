@@ -4,10 +4,10 @@
         <pluginName>ResponsiveImages</pluginName>
         <pluginDescription>ResponsiveImagesPlugin</pluginDescription>
         <pluginNiceName>Responsive Images Plugin</pluginNiceName>
-        <pluginVersion>1.0.0</pluginVersion>
+        <pluginVersion>2.0.0</pluginVersion>
         <pluginRevision>1</pluginRevision>
         <pluginBuildTimestamp></pluginBuildTimestamp>
-        <pluginClassName>ResponsiveImages_Plugin</pluginClassName>
+        <pluginClassName>\ResponsiveImages\Plugin</pluginClassName>
         <pluginIncludePaths>
             <path>/ResponsiveImages/lib</path>
         </pluginIncludePaths>

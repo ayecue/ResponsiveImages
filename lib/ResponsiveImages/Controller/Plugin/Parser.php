@@ -1,6 +1,14 @@
 <?php
 
-class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_Abstract {
+namespace ResponsiveImages\Controller\Plugin;
+
+use Pimcore\Tool as PimcoreTool;
+use Pimcore\Model\Cache as PimcoreCache;
+use ResponsiveImages\Polyfill as Polyfill;
+use ResponsiveImages\Helper as Helper;
+use ResponsiveImages\Path as Path;
+
+class Parser extends \Zend_Controller_Plugin_Abstract {
     const CACHE_KEY = "responsiveimage_src";
     const DOM_VERSION = "1.0";
     const DOM_ENCODING = "utf-8";
@@ -20,7 +28,7 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
     }
 
     public function initDOM(){
-        $this->setDOM(new DOMDocument(self::DOM_VERSION,self::DOM_ENCODING));
+        $this->setDOM(new \DOMDocument(self::DOM_VERSION,self::DOM_ENCODING));
     }
 
     public function setScriptSource($scriptSource){
@@ -51,18 +59,18 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
     }
 
     static public function createConfig($config){
-        return ResponsiveImages_Polyfill::getByConfig($config);
+        return Polyfill::getByConfig($config);
     }
 
     static public function createConfigJson($config){
-        return ResponsiveImages_Polyfill::getByConfig($config)->toJSON();
+        return Polyfill::getByConfig($config)->toJSON();
     }
 
-    static public function parseConfig($str){
-        return ResponsiveImages_Polyfill::getByString($str);
+    static public function Polyfill($str){
+        return Polyfill::getByString($str);
     }
 
-    public function addJavascript(simple_html_dom $html){
+    public function addJavascript(\simple_html_dom $html){
         $found = $html->find("head");
 
         if (isset($found) && !empty($found)) {
@@ -79,7 +87,7 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
         }
     }
 
-    public function convertImage(simple_html_dom_node $element){
+    public function convertImage(\simple_html_dom_node $element){
         //create new dom
         $this->initDOM();
 
@@ -95,7 +103,7 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
             return;
         }
 
-        $config = ResponsiveImages_Helper::parseConfig($val);
+        $config = Helper::parseConfig($val);
         $items = $config->getItems();
         $element->removeAttribute($attr);
 
@@ -104,7 +112,7 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
         }
 
         //create path object
-        $path = new ResponsiveImages_Path($element->src);
+        $path = new Path($element->src);
         
         if (!$path->hasAsset()) {
             return;
@@ -159,7 +167,7 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
     }
 
     public function dispatchLoopShutdown() {
-        if(!Pimcore_Tool::isHtmlResponse($this->getResponse())) {
+        if(!PimcoreTool::isHtmlResponse($this->getResponse())) {
             return;
         }
             
@@ -171,10 +179,6 @@ class ResponsiveImages_Controller_Plugin_Parser extends Zend_Controller_Plugin_A
 
         if($html) {
             $elements = $html->find("img[{$this->getAttrSelector()}]");
-
-echo "<!--";
-var_dump("img[{$this->getAttrSelector()}]");
-echo "-->";
 
             if (isset($elements) && !empty($elements)) {
                 foreach ($elements as $element) {
@@ -193,7 +197,7 @@ echo "-->";
                 $this->getResponse()->setBody($body);
 
                 // save storage
-                Pimcore_Model_Cache::save($this->cachedItems, self::CACHE_KEY, array(), 3600);
+                PimcoreCache::save($this->cachedItems, self::CACHE_KEY, array(), 3600);
             }
         }
     }

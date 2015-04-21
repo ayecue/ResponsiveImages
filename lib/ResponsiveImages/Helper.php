@@ -1,15 +1,19 @@
 <?php
 
-class ResponsiveImages_Helper {
+namespace ResponsiveImages;
+
+use ResponsiveImages\Controller\Plugin\Parser as Parser;
+
+class Helper {
 	static public function createConfig($config){
-        return ResponsiveImages_Controller_Plugin_Parser::createConfig($config);
+        return Parser::createConfig($config);
     }
 
     static public function createConfigJson($config){
-        return urlencode(ResponsiveImages_Controller_Plugin_Parser::createConfigJson($config));
+        return urlencode(Parser::createConfigJson($config));
     }
 
     static public function parseConfig($str){
-        return ResponsiveImages_Controller_Plugin_Parser::parseConfig(urldecode($str));
+        return Parser::parseConfig(urldecode($str));
     }
 }

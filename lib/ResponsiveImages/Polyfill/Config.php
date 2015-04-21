@@ -1,6 +1,8 @@
 <?php
 
-class ResponsiveImages_Polyfill_Config {
+namespace ResponsiveImages\Polyfill;
+
+class Config {
 	private $percent;
 	private $minWidth;
 	private $maxWidth;

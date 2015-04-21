@@ -7,7 +7,11 @@
  *	@maxWidth
  *	@width
  */
-class ResponsiveImages_Polyfill {
+namespace ResponsiveImages;
+
+use ResponsiveImages\Polyfill\Config as PolyfillConfig;
+
+class Polyfill {
 	private $items;
 
 	public function setItems($items){
@@ -23,7 +27,7 @@ class ResponsiveImages_Polyfill {
     	$var = array();
 
 		foreach ($items as $item) {
-			$config = new ResponsiveImages_Polyfill_Config();
+			$config = new PolyfillConfig();
 			$config->insertItem($item);
 			$var[] = $config;
 		}
@@ -39,7 +43,7 @@ class ResponsiveImages_Polyfill {
     		$var[] = $item->toArray();
     	}
 
-    	return Zend_Json::encode($var);
+    	return \Zend_Json::encode($var);
     }
 
 	static public function getByConfig($items){
@@ -51,7 +55,7 @@ class ResponsiveImages_Polyfill {
 
 	static public function getByString($str){
 		$polyfill = new self();
-		$data = Zend_Json::decode($str);
+		$data = \Zend_Json::decode($str);
 		$polyfill->parseItems($data);
 
 		return $polyfill;

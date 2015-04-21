@@ -1,6 +1,8 @@
 <?php
 
-class ResponsiveImages_Path {
+namespace ResponsiveImages;
+
+class Path {
     const ALLOW_DIR_REPLACE = FALSE;
 
 	private $parsedUrl = NULL;

@@ -2,6 +2,8 @@
 
 > Compatible with Pimcore 3.x.x
 
+## Description
+
 This plugin add his own implementation of responsive images. (This feature wasn't there in Pimcore < 2.2) Before it's useful you need to install it and configurate these website properties:
 
 * responsiveImageScript - The Javascript library you want to use to enable responsive images. From default it's mobify.
@@ -41,3 +43,8 @@ echo $this->image("myImage",array(
 	"attributes" => $attributes
 ));
 ```
+
+## How to install
+
+* Create folder and drop files in "/plugins/ResponsiveImages"
+* Go to extension menu and click enable and install

@@ -4,7 +4,7 @@
         <pluginName>ResponsiveImages</pluginName>
         <pluginDescription>ResponsiveImagesPlugin</pluginDescription>
         <pluginNiceName>Responsive Images Plugin</pluginNiceName>
-        <pluginVersion>2.0.0</pluginVersion>
+        <pluginVersion>2.0.1</pluginVersion>
         <pluginRevision>1</pluginRevision>
         <pluginBuildTimestamp></pluginBuildTimestamp>
         <pluginClassName>ResponsiveImages\Plugin</pluginClassName>

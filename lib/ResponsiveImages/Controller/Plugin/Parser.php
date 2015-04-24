@@ -66,7 +66,7 @@ class Parser extends \Zend_Controller_Plugin_Abstract {
         return Polyfill::getByConfig($config)->toJSON();
     }
 
-    static public function Polyfill($str){
+    static public function parseConfig($str){
         return Polyfill::getByString($str);
     }
 
@@ -127,7 +127,7 @@ class Parser extends \Zend_Controller_Plugin_Abstract {
 
             //create source element
             $sourceElement = $this->getDOM()->createElement("source");
-            $sourceElement->setAttribute("src",$path->getAltHttpUrl($percent));
+            $sourceElement->setAttribute("srcset",$path->getAltHttpUrl($percent));
 
             //set min and max width
             if (isset($minWidth) && !isset($maxWidth)) {

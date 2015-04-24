@@ -2,6 +2,8 @@
 
 namespace ResponsiveImages;
 
+use Pimcore\Model\Asset\Image as AssetImage;
+
 class Path {
     const ALLOW_DIR_REPLACE = FALSE;
 
@@ -115,7 +117,7 @@ class Path {
         $this->setDirname(pathinfo($this->getParsedUrlProperty("path"),PATHINFO_DIRNAME));
         $this->setFilename(pathinfo($this->getParsedUrlProperty("path"),PATHINFO_FILENAME));
         $this->setExtension(pathinfo($this->getParsedUrlProperty("path"),PATHINFO_EXTENSION));
-       	$this->setAsset(Asset_Image::getByPath($this->getPath()));
+       	$this->setAsset(AssetImage::getByPath($this->getPath()));
     }
 }
 
